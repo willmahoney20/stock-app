@@ -1,16 +1,10 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-
-interface DataProps {
-	pro_id: number,
-	pro_name: string,
-	pro_qty: number,
-	pro_price: number
-}
+import StockProps from '@/types/stock'
 
 export default () => {
-	const [data, setData] = useState<DataProps[]>([])
+	const [data, setData] = useState<StockProps[]>([])
 	const [dataLoaded, setDataLoaded] = useState<boolean>(false)
 
 	useEffect(() => {
