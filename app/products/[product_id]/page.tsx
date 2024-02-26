@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react'
 import ProductProps from '@/types/product'
 import { useParams } from 'next/navigation'
 import Image from 'next/image'
+import EditIcon from '@/public/edit'
 
 export default () => {
 	const params = useParams()
@@ -50,16 +51,20 @@ export default () => {
 				</div>
 				<div className="flex flex-col justify-between pl-12" style={{height: 625}}>
 					<div className="flex flex-col">
-						<div className="flex flex-row justify-between items-center mb-2">
+						<div className="flex flex-row justify-between items-center mb-2 min-w-80 w-80">
 							<h2 className="text-black text-xl font-bold m-0">
 								{data.pro_name}
 							</h2>
+							<EditIcon width='1.25rem' height='1.25rem' />
 						</div>
 						<h4 className="text-black font-normal opacity-70 mb-6">
 							{data.pro_group === 'kids' ? "Kid's" : data.pro_gender === 'male' ? "Men's" : data.pro_gender === 'female' ? "Women's" : 'Unisex'} Shoes
 						</h4>
 					</div>
 					<div>
+						<h4 className="text-black font-normal opacity-70 mb-2">
+							Stock: {data.pro_qty}
+						</h4>
 						<h2 className="text-black text-xl font-bold mb-2">
 							£{data.pro_price}
 						</h2>
