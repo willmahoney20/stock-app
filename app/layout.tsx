@@ -18,11 +18,9 @@ export default ({ children }: { children: React.ReactNode }) => {
     return (
         <html lang="en">
             <body className={poppins.className}>
-                <div className="site-container">
+                <div className="flex flex-col justify-between min-h-screen">
                     <Navbar />
-                    <div className="content-container">
-                        {children}
-                    </div>
+                    {children}
                     <Footer />
                 </div>
             </body>
