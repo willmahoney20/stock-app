@@ -9,6 +9,7 @@ import EditIcon from '@/public/edit'
 export default () => {
 	const params = useParams()
 	const [data, setData] = useState<ProductProps | null>(null)
+	const [activeImage, setActiveImage] = useState<number>(0)
 	const [dataLoaded, setDataLoaded] = useState<boolean>(false)
 
 	useEffect(() => {
@@ -43,7 +44,7 @@ export default () => {
 			<div className="flex flex-row justify-center items-start px-4 py-12">
 				<div className="flex justify-center items-center overflow-hidden rounded-lg">
 					<Image
-						src={data.image_urls[0]}
+						src={data.image_urls[activeImage]}
 						alt='Trainers'
 						width={500}
 						height={625}
