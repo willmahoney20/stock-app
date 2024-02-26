@@ -32,6 +32,7 @@ export default () => {
 				{data.map(item => {
 					return <ProductCard
 						key={item.pro_id}
+						pro_id={item.pro_id}
 						pro_name={item.pro_name}
 						pro_qty={item.pro_qty}
 						pro_price={item.pro_price}
