@@ -1,8 +1,8 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-import Image from 'next/image'
 import ProductProps from '@/types/product'
+import ProductCard from '@/components/ProductCard'
 
 export default () => {
 	const [data, setData] = useState<ProductProps[]>([])
@@ -30,32 +30,15 @@ export default () => {
 		<div className="container mx-auto">
 			<div className="flex flex-row justify-center items-start p-4">
 				{data.map(item => {
-					return (
-						<div key={item.pro_id} className="flex flex-col p-4">
-							<div className="flex justify-center items-center w-96 h-96 overflow-hidden rounded-lg">
-								<Image
-									src={item.pro_image}
-									alt='Trainers'
-									width={500}
-									height={625}
-								/>
-							</div>
-							<div className="flex flex-col py-2">
-								<h4 className='font-semibold'>
-									{item.pro_name}
-								</h4>
-								<h5 className='font-normal opacity-70 mt-1.5'>
-									{item.pro_group === 'kids' ? "Kid's" : item.pro_gender === 'male' ? "Men's" : item.pro_gender === 'female' ? "Women's" : 'Unisex'} Shoes
-								</h5>
-								<h5 className='font-normal opacity-70'>
-									Stock: {item.pro_qty}
-								</h5>
-								<h4 className='font-semibold mt-1.5'>
-									£{item.pro_price}
-								</h4>
-							</div>
-						</div>
-					)
+					return <ProductCard
+						key={item.pro_id}
+						pro_name={item.pro_name}
+						pro_qty={item.pro_qty}
+						pro_price={item.pro_price}
+						pro_gender={item.pro_gender}
+						pro_group={item.pro_group}
+						pro_image={item.pro_image}
+					/>
 				})}
 			</div>
 		</div>
