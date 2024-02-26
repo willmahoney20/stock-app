@@ -20,7 +20,9 @@ export default ({ children }: { children: React.ReactNode }) => {
             <body className={poppins.className}>
                 <div className="flex flex-col justify-between min-h-screen">
                     <Navbar />
-                    {children}
+                    <div style={{minHeight: 'calc(100vh - 96px)'}}>
+                        {children} 
+                    </div>
                     <Footer />
                 </div>
             </body>
