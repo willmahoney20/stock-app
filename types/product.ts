@@ -6,5 +6,5 @@ export default interface StockProps {
 	pro_gender: string,
 	pro_group: string,
 	pro_image: string,
-	pro_images: string[]
+	image_urls: string[]
 }

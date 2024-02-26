@@ -24,12 +24,12 @@ export default ({ pro_name, pro_qty, pro_price, pro_gender, pro_group, pro_image
                 <h4 className='font-semibold'>
                     {pro_name}
                 </h4>
-                <h5 className='font-normal opacity-70 mt-1.5'>
+                <h4 className='font-normal opacity-70 mt-1.5'>
                     {pro_group === 'kids' ? "Kid's" : pro_gender === 'male' ? "Men's" : pro_gender === 'female' ? "Women's" : 'Unisex'} Shoes
-                </h5>
-                <h5 className='font-normal opacity-70'>
+                </h4>
+                <h4 className='font-normal opacity-70'>
                     Stock: {pro_qty}
-                </h5>
+                </h4>
                 <h4 className='font-semibold mt-1.5'>
                     £{pro_price}
                 </h4>
