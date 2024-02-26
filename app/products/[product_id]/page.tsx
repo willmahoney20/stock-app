@@ -5,6 +5,7 @@ import ProductProps from '@/types/product'
 import { useParams } from 'next/navigation'
 import Image from 'next/image'
 import EditIcon from '@/public/edit'
+import ArrowIcon from '@/public/arrow'
 
 export default () => {
 	const params = useParams()
@@ -42,6 +43,26 @@ export default () => {
 	return (
 		<div className="container mx-auto">
 			<div className="flex flex-row justify-center items-start px-4 py-12">
+				<div className="flex flex-col pr-12">
+					{data.image_urls.map((item, index) => {
+						return (
+							<div
+								key={index}
+								className="flex cursor-pointer"
+								style={{
+									marginBottom: index !== data.image_urls.length - 1 ? '12.5px' : 0
+								}}
+								onClick={() => setActiveImage(index)}>
+								<Image
+									src={item}
+									alt='Trainers'
+									width={92}
+									height={115}
+								/>
+							</div>
+						)
+					})}
+				</div>
 				<div className="flex justify-center items-center overflow-hidden rounded-lg">
 					<Image
 						src={data.image_urls[activeImage]}
