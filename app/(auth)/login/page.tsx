@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import handleFormErrors from '@/helpers/handleLoginErrors'
 import imageSplitter from '@/helpers/imageSplitter'
+import FormInput from '@/components/FormInput'
 
 interface ErrorProps {
     username: string,
@@ -43,49 +44,22 @@ export default () => {
                     <h1 className="text-black text-2xl text-center font-bold mb-10">
                         LOGIN
                     </h1>
-                    <div className="relative mb-6">
-                        <label
-                            htmlFor="username"
-                            className="absolute bottom-6 left-2 bg-white text-black text-sm font-semibold px-1 pb-0.5 m-0"
-                            style={{
-                                color: errors.username ? 'red' : 'inherit'
-                            }}
-                        >
-                            Username
-                        </label>
-                        <input
-                            type="text"
-                            name="username"
-                            value={username}
-                            onChange={e => setUsername(e.target.value)}
-                            className="bg-transparent w-full h-9 px-3 py-2 border border-gray-500 rounded-md"
-                            style={{
-                                borderColor: errors.username ? 'red' : '#6b7280'
-                            }}
-                        />
-                    </div>
-                    <div className="relative mb-6">
-                        <label
-                            htmlFor="password"
-                            className="absolute bottom-6 left-2 bg-white text-black text-sm font-semibold px-1 pb-0.5 m-0"
-                            style={{
-                                color: errors.password ? 'red' : 'inherit'
-                            }}
-                        >
-                            Password
-                        </label>
-                        <input
-                            type="password"
-                            name="password"
-                            value={password}
-                            onChange={e => setPassword(e.target.value)}
-                            className="bg-transparent w-full h-9 px-3 py-2 border border-gray-500 rounded-md"
-                            step="1"
-                            style={{
-                                borderColor: errors.password ? 'red' : '#6b7280'
-                            }}
-                        />
-                    </div>
+                    <FormInput
+                        name='username'
+                        type='text'
+                        label='Username'
+                        value={username}
+                        onChange={e => setUsername(e.target.value)}
+                        error={errors.username ? true : false}
+                    />
+                    <FormInput
+                        name='password'
+                        type='password'
+                        label='Password'
+                        value={password}
+                        onChange={e => setPassword(e.target.value)}
+                        error={errors.password ? true : false}
+                    />
                     <div>
                         <button type='submit' className="bg-purple text-white text-sm font-semibold py-2 px-3.5 rounded shadow-md w-full">
                             Login

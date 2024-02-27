@@ -3,6 +3,8 @@ import { useRouter } from 'next/navigation'
 import handleFormErrors from '@/helpers/handleProductErrors'
 import imageSplitter from '@/helpers/imageSplitter'
 import ErrorProps from '@/types/errors'
+import FormInput from './FormInput'
+import FormSelect from './FormSelect'
 
 interface DataProps {
     name: string,
@@ -90,142 +92,67 @@ export default ({ edit, id, data }: {
 
     return (
         <form onSubmit={handleSubmit} className='max-w-sm mx-auto mt-12 px-2'>
-            <div className="relative mb-6">
-                <label
-                    htmlFor="name"
-                    className="absolute bottom-6 left-2 bg-white text-black text-sm font-semibold px-1 pb-0.5 m-0"
-                    style={{
-                        color: errors.name ? 'red' : 'inherit'
-                    }}
-                >
-                    Product Name
-                </label>
-                <input
-                    type="text"
-                    name="name"
-                    value={name}
-                    onChange={e => setName(e.target.value)}
-                    className="bg-transparent w-full h-9 px-3 py-2 border border-gray-500 rounded-md"
-                    style={{
-                        borderColor: errors.name ? 'red' : '#6b7280'
-                    }}
-                />
-            </div>
-            <div className="relative mb-6">
-                <label
-                    htmlFor="quantity"
-                    className="absolute bottom-6 left-2 bg-white text-black text-sm font-semibold px-1 pb-0.5 m-0"
-                    style={{
-                        color: errors.quantity ? 'red' : 'inherit'
-                    }}
-                >
-                    Quantity
-                </label>
-                <input
-                    type="number"
-                    name="quantity"
-                    value={quantity}
-                    onChange={e => setQuantity(e.target.value)}
-                    className="bg-transparent w-full h-9 px-3 py-2 border border-gray-500 rounded-md"
-                    step="1"
-                    style={{
-                        borderColor: errors.quantity ? 'red' : '#6b7280'
-                    }}
-                />
-            </div>
-            <div className="relative mb-6">
-                <label
-                    htmlFor="price"
-                    className="absolute bottom-6 left-2 bg-white text-black text-sm font-semibold px-1 pb-0.5 m-0"
-                    style={{
-                        color: errors.price ? 'red' : 'inherit'
-                    }}
-                >
-                    Price (£)
-                </label>
-                <input
-                    type="number"
-                    name="price"
-                    value={price}
-                    onChange={e => setPrice(e.target.value)}
-                    className="bg-transparent w-full h-9 px-3 py-2 border border-gray-500 rounded-md"
-                    style={{
-                        borderColor: errors.price ? 'red' : '#6b7280'
-                    }}
-                />
-            </div>
+            <FormInput
+                name='name'
+                type='text'
+                label='Product Name'
+                value={name}
+                onChange={e => setName(e.target.value)}
+                error={errors.name ? true : false}
+            />
+            <FormInput
+                name='quantity'
+                type='number'
+                label='Quantity'
+                value={quantity}
+                onChange={e => setQuantity(e.target.value)}
+                error={errors.quantity ? true : false}
+            />
+            <FormInput
+                name='price'
+                type='number'
+                label='Price (£)'
+                value={price}
+                onChange={e => setPrice(e.target.value)}
+                error={errors.price ? true : false}
+            />
             <div className="flex flex-row justify-between mb-6">
-                <div className="relative mr-1">
-                    <label
-                        htmlFor="gender"
-                        className="absolute bottom-6 left-2 bg-white text-black text-sm font-semibold px-1 pb-0.5 m-0"
-                        style={{
-                            color: errors.gender ? 'red' : 'inherit'
-                        }}
-                    >
-                        Gender
-                    </label>
-                    <select
-                        name="gender"
-                        value={gender}
-                        onChange={e => setGender(e.target.value)}
-                        className="bg-transparent w-full h-9 px-2 py-1 border border-gray-500 rounded-md"
-                        style={{
-                            borderColor: errors.gender ? 'red' : '#6b7280'
-                        }}
-                    >
-                        <option value="" disabled hidden>Select an option</option>
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                        <option value="unisex">Unisex</option>
-                    </select>
-                </div>
-                <div className="relative ml-1">
-                    <label
-                        htmlFor="group"
-                        className="absolute bottom-6 left-2 bg-white text-black text-sm font-semibold px-1 pb-0.5 m-0"
-                        style={{
-                            color: errors.group ? 'red' : 'inherit'
-                        }}
-                    >
-                        Group
-                    </label>
-                    <select
-                        name="group"
-                        value={group}
-                        onChange={e => setGroup(e.target.value)}
-                        className="bg-transparent w-full h-9 px-2 py-1 border border-gray-500 rounded-md"
-                        style={{
-                            borderColor: errors.group ? 'red' : '#6b7280'
-                        }}
-                    >
-                        <option value="" disabled hidden>Select an option</option>
-                        <option value="adults">Adults</option>
-                        <option value="kids">Kids</option>
-                    </select>
-                </div>
-            </div>
-            <div className="relative mb-6">
-                <label
-                    htmlFor="images"
-                    className="absolute bottom-6 left-2 bg-white text-black text-sm font-semibold px-1 pb-0.5 m-0"
-                    style={{
-                        color: errors.images ? 'red' : 'inherit'
-                    }}
-                >
-                    Image URL's (Comma Separated)
-                </label>
-                <input
-                    type="text"
-                    name="images"
-                    value={images}
-                    onChange={e => setImages(e.target.value)}
-                    className="bg-transparent w-full h-9 px-3 py-2 border border-gray-500 rounded-md"
-                    style={{
-                        borderColor: errors.images ? 'red' : '#6b7280'
-                    }}
+                <FormSelect
+                    name='gender'
+                    label='Gender'
+                    value={gender}
+                    onChange={e => setGender(e.target.value)}
+                    error={errors.gender ? true : false}
+                    options={[
+                        { value: '', label: 'Select an option', hidden: true },
+                        { value: 'male', label: 'Male', hidden: false },
+                        { value: 'female', label: 'Female', hidden: false },
+                        { value: 'unisex', label: 'Unisex', hidden: false }
+                    ]}
+                    classes='mr-1'
+                />
+                <FormSelect
+                    name='group'
+                    label='Group'
+                    value={group}
+                    onChange={e => setGroup(e.target.value)}
+                    error={errors.group ? true : false}
+                    options={[
+                        { value: '', label: 'Select an option', hidden: true },
+                        { value: 'adults', label: 'Adults', hidden: false },
+                        { value: 'kids', label: 'Kids', hidden: false }
+                    ]}
+                    classes='ml-1'
                 />
             </div>
+            <FormInput
+                name='images'
+                type='text'
+                label="Image URL's (Comma Separated)"
+                value={images}
+                onChange={e => setImages(e.target.value)}
+                error={errors.images ? true : false}
+            />
             <div>
                 <button type='submit' className="bg-purple text-white text-sm font-semibold py-2 px-3.5 rounded shadow-md w-full">
                     {edit ? 'Edit' : 'Upload'}
