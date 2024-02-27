@@ -28,7 +28,7 @@ export default () => {
 
 	return (
 		<div className="container mx-auto">
-			<div className="flex flex-wrap justify-center p-4">
+			<div className="flex flex-wrap justify-center p-4 py-6">
 				{data.map(item => {
 					return <ProductCard
 						key={item.pro_id}

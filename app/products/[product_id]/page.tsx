@@ -7,12 +7,14 @@ import Image from 'next/image'
 import EditIcon from '@/public/edit'
 import DeleteIcon from '@/public/delete'
 import Link from 'next/link'
+import DeletePopup from '@/components/DeletePopup'
 
 export default () => {
 	const params = useParams()
 	const [data, setData] = useState<ProductProps | null>(null)
 	const [activeImage, setActiveImage] = useState<number>(0)
 	const [dataLoaded, setDataLoaded] = useState<boolean>(false)
+	const [deleteOpen, setDeleteOpen] = useState<boolean>(false)
 
 	useEffect(() => {
         const product_id = params.product_id
@@ -45,6 +47,12 @@ export default () => {
 
 	return (
 		<div className="container mx-auto">
+			{deleteOpen &&
+			<DeletePopup
+				id={data.pro_id}
+				closePopup={() => setDeleteOpen(false)}
+			/>}
+
 			<div className="flex flex-row justify-center items-start px-4 py-12">
 				<div className="flex flex-col pr-12">
 					{data.image_urls.map((item, index) => {
@@ -84,7 +92,10 @@ export default () => {
 								<Link href={`/edit/${data.pro_id}`}>
 									<EditIcon width='1.25rem' height='1.25rem' />
 								</Link>
-								<button className='ml-2'>
+								<button
+									className='ml-2'
+									onClick={() => setDeleteOpen(true)}
+								>
 									<DeleteIcon width='1.25rem' height='1.25rem' />
 								</button>
 							</div>
