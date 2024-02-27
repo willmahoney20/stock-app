@@ -5,7 +5,6 @@ import ProductProps from '@/types/product'
 import { useParams } from 'next/navigation'
 import Image from 'next/image'
 import EditIcon from '@/public/edit'
-import ArrowIcon from '@/public/arrow'
 
 export default () => {
 	const params = useParams()
@@ -26,6 +25,8 @@ export default () => {
 				setDataLoaded(true)
 			} catch (err) {
 				console.error('Error fetching data:', err)
+
+				setDataLoaded(true)
 			}
 		}
 
