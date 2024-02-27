@@ -92,6 +92,9 @@ export default ({ edit, id, data }: {
 
     return (
         <form onSubmit={handleSubmit} className='max-w-sm mx-auto mt-12 px-2'>
+            <h1 className="text-black text-2xl text-center font-bold mb-10">
+                {edit ? 'EDIT A PRODUCT' : 'ADD A PRODUCT'}
+            </h1>
             <FormInput
                 name='name'
                 type='text'

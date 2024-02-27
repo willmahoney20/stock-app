@@ -2,16 +2,20 @@
 
 import React, { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import handleFormErrors from '@/helpers/handleLoginErrors'
+import handleFormErrors from '@/helpers/handleSignupErrors'
 import FormInput from '@/components/FormInput'
 
 interface ErrorProps {
+    name: string,
+    email: string,
     username: string,
     password: string
 }
 
 export default () => {
     const router = useRouter()
+    const [name, setName] = useState<string>('')
+    const [email, setEmail] = useState<string>('')
     const [username, setUsername] = useState<string>('')
     const [password, setPassword] = useState<string>('')
     const [errors, setErrors] = useState<Partial<ErrorProps>>({})
@@ -19,7 +23,7 @@ export default () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
         e.preventDefault()
 
-        const error_res = await handleFormErrors({ username, password })
+        const error_res = await handleFormErrors({ name, email, username, password })
 
         if(error_res){
             setErrors(error_res)
@@ -41,8 +45,24 @@ export default () => {
             <div className="flex flex-column justify-center items-start py-12">
                 <form onSubmit={handleSubmit} className='max-w-sm mx-auto mt-12 px-2'>
                     <h1 className="text-black text-2xl text-center font-bold mb-10">
-                        LOGIN
+                        JOIN
                     </h1>
+                    <FormInput
+                        name='name'
+                        type='text'
+                        label='Name'
+                        value={name}
+                        onChange={e => setName(e.target.value)}
+                        error={errors.name ? true : false}
+                    />
+                    <FormInput
+                        name='email'
+                        type='text'
+                        label='Email'
+                        value={email}
+                        onChange={e => setEmail(e.target.value)}
+                        error={errors.email ? true : false}
+                    />
                     <FormInput
                         name='username'
                         type='text'
@@ -61,10 +81,10 @@ export default () => {
                     />
                     <div>
                         <button type='submit' className="bg-purple text-white text-sm font-semibold py-2 px-3.5 rounded shadow-md w-full">
-                            Login
+                            Create an Account
                         </button>
                     </div>
-                    <p className="text-black text-sm font-light text-center mt-3">Don't have an account? Join <a href='/signup' className='text-purple font-semibold'>here</a>.</p>
+                    <p className="text-black text-sm font-light text-center mt-3">Already have an account? Login <a href='/login' className='text-purple font-semibold'>here</a>.</p>
                 </form>
             </div>
         </div>
