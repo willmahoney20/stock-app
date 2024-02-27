@@ -5,6 +5,7 @@ import ProductProps from '@/types/product'
 import { useParams } from 'next/navigation'
 import Image from 'next/image'
 import EditIcon from '@/public/edit'
+import Link from 'next/link'
 
 export default () => {
 	const params = useParams()
@@ -78,7 +79,9 @@ export default () => {
 							<h2 className="text-black text-xl font-bold m-0">
 								{data.pro_name}
 							</h2>
-							<EditIcon width='1.25rem' height='1.25rem' />
+							<Link href={`/edit/${data.pro_id}`}>
+								<EditIcon width='1.25rem' height='1.25rem' />
+							</Link>
 						</div>
 						<h4 className="text-black font-normal opacity-70 mb-6">
 							{data.pro_group === 'kids' ? "Kid's" : data.pro_gender === 'male' ? "Men's" : data.pro_gender === 'female' ? "Women's" : 'Unisex'} Shoes
