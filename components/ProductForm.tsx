@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import handleFormErrors from '@/helpers/handleFormErrors'
+import handleFormErrors from '@/helpers/handleProductErrors'
 import imageSplitter from '@/helpers/imageSplitter'
 import ErrorProps from '@/types/errors'
 
@@ -227,7 +227,7 @@ export default ({ edit, id, data }: {
                 />
             </div>
             <div>
-                <button type='submit' className="bg-purple text-white text-sm font-semibold py-2 px-3.5 rounded shadow-md">
+                <button type='submit' className="bg-purple text-white text-sm font-semibold py-2 px-3.5 rounded shadow-md w-full">
                     {edit ? 'Edit' : 'Upload'}
                 </button>
             </div>

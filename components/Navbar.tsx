@@ -15,9 +15,11 @@ export default () => {
                             Upload
                         </button>
                     </Link>
-                    <button className="bg-purple text-white text-sm font-semibold py-2 px-3.5 rounded shadow-md">
-                        Login
-                    </button>
+                    <Link href='/login'>
+                        <button className="bg-purple text-white text-sm font-semibold py-2 px-3.5 rounded shadow-md">
+                            Login
+                        </button>
+                    </Link>
                 </div>
             </div>
         </header>

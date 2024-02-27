@@ -33,8 +33,6 @@ export default ({ name, quantity, price, gender, group, images }: FormProps) => 
         errors.group = 'Group is required'
     }
 
-    console.log(17, images)
-
     // check images are between 1 and 5 uploads
     if(images.length < 1 || images.length > 5){
         errors.images = 'You must upload 1-5 images'
