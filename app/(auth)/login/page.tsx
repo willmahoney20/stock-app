@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import handleFormErrors from '@/helpers/handleLoginErrors'
 import FormInput from '@/components/FormInput'
+import { signIn } from 'next-auth/react'
 
 interface ErrorProps {
     username: string,
@@ -30,7 +31,10 @@ export default () => {
         setErrors({})
 
         try {
-            // handle login
+            await signIn('credentials', {
+                username,
+                password
+            })
         } catch (err){
             console.error('Error adding new product:', err)
         }
