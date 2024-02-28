@@ -20,7 +20,7 @@ export default () => {
     const [password, setPassword] = useState<string>('')
     const [errors, setErrors] = useState<Partial<ErrorProps>>({})
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
+    const handleSignup = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
         e.preventDefault()
 
         const error_res = await handleFormErrors({ name, email, username, password })
@@ -34,7 +34,24 @@ export default () => {
         setErrors({})
 
         try {
-            // handle login
+            const res = await fetch('/api/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name,
+                    email,
+                    username,
+                    password
+                })
+            })
+
+            if(!res.ok){
+                throw new Error('Failed to upload new product')
+            }
+            
+            router.push('/')
         } catch (err){
             console.error('Error adding new product:', err)
         }
@@ -43,7 +60,7 @@ export default () => {
     return (
         <div className="container mx-auto">
             <div className="flex flex-column justify-center items-start py-12">
-                <form onSubmit={handleSubmit} className='max-w-sm mx-auto mt-12 px-2'>
+                <form onSubmit={handleSignup} className='max-w-sm mx-auto mt-12 px-2'>
                     <h1 className="text-black text-2xl text-center font-bold mb-10">
                         JOIN
                     </h1>

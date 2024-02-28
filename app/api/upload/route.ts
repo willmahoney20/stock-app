@@ -3,9 +3,9 @@ import { NextResponse } from 'next/server'
 
 export const POST = async (req: any) => {
     if(req.method === 'POST'){
-        const { name, quantity, price, gender, group, images } = await req.json()
-    
         try {
+            const { name, quantity, price, gender, group, images } = await req.json()
+
             const product_res: any = await db.query(
                 `INSERT INTO
                     will_products (pro_name, pro_qty, pro_price, pro_gender, pro_group)
