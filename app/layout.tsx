@@ -1,7 +1,13 @@
 import type { Metadata } from "next"
 import { Poppins } from "next/font/google"
+import { getServerSession } from 'next-auth'
+import { authOptions } from './api/auth/[...nextauth]/route'
 import "./global.css"
-import Navbar from '@/components/Navbar'
+import Providers from './providers'
+import Auth from "@/routing/Auth"
+import NoAuth from '@/routing/NoAuth'
+import AuthNavbar from '@/components/AuthNavbar'
+import NoAuthNavbar from '@/components/NoAuthNavbar'
 import Footer from "@/components/Footer"
 
 const poppins = Poppins({
@@ -14,17 +20,32 @@ export const metadata: Metadata = {
     description: "An app for stock and stuff..."
 }
 
-export default ({ children }: { children: React.ReactNode }) => {
+export default async ({ children }: { children: React.ReactNode }) => {
+	const session = await getServerSession(authOptions)
+
     return (
         <html lang="en">
             <body className={poppins.className}>
-                <div className="flex flex-col justify-between min-h-screen">
-                    <Navbar />
-                    <div style={{minHeight: 'calc(100vh - 96px)'}}>
-                        {children} 
+                <Providers>
+                    <div className="flex flex-col justify-between min-h-screen">
+                        {session ?
+                        <Auth>
+                            <AuthNavbar />
+                            <div style={{minHeight: 'calc(100vh - 96px)'}}>
+                                {children}
+                            </div>
+                            <Footer />
+                        </Auth>
+                        : 
+                        <NoAuth>
+                            <NoAuthNavbar />
+                            <div style={{minHeight: 'calc(100vh - 96px)'}}>
+                                {children}
+                            </div>
+                            <Footer />
+                        </NoAuth>}
                     </div>
-                    <Footer />
-                </div>
+                </Providers>
             </body>
         </html>
     )

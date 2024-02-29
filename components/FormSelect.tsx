@@ -31,8 +31,9 @@ export default ({ name, label, value, onChange, error, options, classes }: Props
                     borderColor: error ? 'red' : '#6b7280'
                 }}
             >
-                {options.map(option => (
+                {options.map((option, index) => (
                     <option
+                        key={index}
                         value={option.value}
                         disabled={option.hidden}
                         hidden={option.hidden}

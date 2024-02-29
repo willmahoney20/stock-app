@@ -1,3 +1,5 @@
+'use client'
+
 import Link from "next/link"
 
 export default () => {
@@ -5,16 +7,9 @@ export default () => {
         <header className="bg-light-grey h-16">
             <div className="container flex justify-between items-center mx-auto px-4 h-full">
                 <div>
-                    <Link href='/'>
-                        <h1 className="font-bold m-0">NextJS</h1>
-                    </Link>
+                    <h1 className="font-bold m-0">NextJS</h1>
                 </div>
                 <div>
-                    <Link href='/upload'>
-                        <button className="bg-transparent text-purple text-sm font-semibold py-2 px-3.5 mr-2">
-                            Upload
-                        </button>
-                    </Link>
                     <Link href='/login'>
                         <button className="bg-purple text-white text-sm font-semibold py-2 px-3.5 rounded shadow-md">
                             Login

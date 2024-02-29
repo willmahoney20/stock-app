@@ -16,7 +16,6 @@ export const authOptions = {
 					`SELECT
                         u_id,
                         u_email,
-                        u_username,
                         u_password
 					FROM
                         will_users
@@ -33,12 +32,28 @@ export const authOptions = {
 
 				return {
                     id: user[0].u_id,
-                    email: user[0].u_email,
-                    username: user[0].u_username
+                    email: user[0].u_email
                 }
 			}
 		})
-	]
+	],
+	callbacks: {
+		async session({ token }: any) {
+			const [user]: any = await db.query(
+				`SELECT
+					u_role
+				FROM
+					will_users
+				WHERE
+					u_email = ?`,
+				[token.email]
+			)
+
+			token.role = user[0].u_role
+
+			return token
+		}
+	}
 }
 
 const handler = NextAuth(authOptions)
