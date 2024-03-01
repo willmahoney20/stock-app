@@ -1,7 +1,6 @@
 'use client'
 
 import React, { useState } from 'react'
-import { useRouter } from 'next/navigation'
 import handleFormErrors from '@/helpers/handleLoginErrors'
 import FormInput from '@/components/FormInput'
 import { signIn } from 'next-auth/react'
@@ -12,7 +11,6 @@ interface ErrorProps {
 }
 
 export default () => {
-    const router = useRouter()
     const [username, setUsername] = useState<string>('')
     const [password, setPassword] = useState<string>('')
     const [errors, setErrors] = useState<Partial<ErrorProps>>({})
