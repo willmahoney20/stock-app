@@ -1,35 +1,19 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
 import ProductProps from '@/types/product'
 import ProductCard from '@/components/ProductCard'
+import useSWR from 'swr'
+import fetcher from '@/lib/fetcher'
 
 export default () => {
-	const [data, setData] = useState<ProductProps[]>([])
-	const [dataLoaded, setDataLoaded] = useState<boolean>(false)
+	const { data, isLoading } = useSWR<ProductProps[]>('/api/products', fetcher)
 
-	useEffect(() => {
-		const fetchData = async () => {
-			try {
-				const res = await fetch('/api/products')
-				const values = await res.json()
-
-				setData(values)
-				setDataLoaded(true)
-			} catch (err) {
-				console.error('Error fetching data:', err)
-			}
-		}
-
-		fetchData()
-	}, [])
-
-	if(!dataLoaded) return null
+	if(isLoading) return null
 
 	return (
 		<div className="container mx-auto">
 			<div className="flex flex-wrap justify-center p-4 py-6">
-				{data.map(item => {
+				{data?.map(item => {
 					return <ProductCard
 						key={item.pro_id}
 						pro_id={item.pro_id}

@@ -1,58 +1,28 @@
 'use client'
 
-import { useState, useEffect } from 'react'
 import { useParams } from 'next/navigation'
 import ProductForm from "@/components/ProductForm"
+import useSWR from 'swr'
+import fetcher from '@/lib/fetcher'
 
 interface DataProps {
-    name: string,
-    quantity: string,
-    price: string,
-    gender: string,
-    group: string,
-    images: string
+    pro_id: number,
+    pro_name: string,
+    pro_qty: number,
+    pro_price: string,
+    pro_gender: string,
+    pro_group: string,
+    image_urls: string[]
 }
 
 export default () => {
 	const params = useParams()
-    const [id, setId] = useState<number | null>(null)
-    const [data, setData] = useState<DataProps | null>(null)
-    const [dataLoaded, setDataLoaded] = useState<boolean>(false)
 
-	useEffect(() => {
-        const product_id = params.product_id
+	const { data, isLoading } = useSWR<DataProps[] | null>(`/api/products/${params.product_id}`, fetcher)
 
-		const fetchData = async () => {
-			try {
-				const res = await fetch(`/api/products/${product_id}`)
-				const values = await res.json()
+	if(isLoading) return null
 
-				if(values[0]){
-                    setId(values[0].pro_id)
-                    setData({
-                        name: values[0].pro_name,
-                        quantity: values[0].pro_qty.toString(),
-                        price: values[0].pro_price,
-                        gender: values[0].pro_gender,
-                        group: values[0].pro_group,
-                        images: values[0].image_urls.join(', ')
-                    })
-                }
-
-				setDataLoaded(true)
-			} catch (err) {
-				console.error('Error fetching data:', err)
-
-				setDataLoaded(true)
-			}
-		}
-
-		fetchData()
-	}, [])
-
-	if(!dataLoaded) return null
-
-    if(!data) return (
+    if(!data || !data[0]) return (
 		<div className="min-h-96 flex justify-center items-center">
 			<h4 className="font-semibold">No Product Found</h4>
 		</div>
@@ -61,7 +31,18 @@ export default () => {
     return (
         <div className="container mx-auto">
             <div className="flex flex-column justify-center items-start py-12">
-                <ProductForm edit={true} id={id} data={data} />
+                <ProductForm
+                    edit={true}
+                    id={data[0].pro_id}
+                    data={{
+                        name: data[0].pro_name,
+                        quantity: data[0].pro_qty.toString(),
+                        price: data[0].pro_price,
+                        gender: data[0].pro_gender,
+                        group: data[0].pro_group,
+                        images: data[0].image_urls.join(', ')
+                    }}
+                />
             </div>
         </div>
     )
