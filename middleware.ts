@@ -14,8 +14,14 @@ export default withAuth(
         const session = req.nextauth.token
         const { pathname } = req.nextUrl
 
-        // if it's an api call, then continue
-        if(pathname.startsWith('/api/')) return NextResponse.next()
+        // if it's an api call, continue if authorised, else return to login
+        if(pathname.startsWith('/api/')){
+            if(!session){
+                return NextResponse.redirect(new URL('/login', req.url))
+            }
+            
+            return NextResponse.next()
+        }
 
         // if the pathname is not recognised, return a 404 error
         if(pathname !== '/' && !valid_routes.some(route => pathname.startsWith(route))){
