@@ -24,11 +24,11 @@ export const authOptions = {
 					[username, username]
 				)
 
-				if(!user) return null
+				if(!user[0]) throw new Error('Sorry, your login details are incorrect.')
 				
                 const is_match = await bcrypt.compare(password, user[0].u_password)
 
-				if(!is_match) return null
+				if(!is_match) throw new Error('Sorry, your login details are incorrect.')
 
 				return {
                     id: user[0].u_id,

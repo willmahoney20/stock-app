@@ -53,7 +53,7 @@ export default () => {
             
             router.push('/')
         } catch (err){
-            console.error('Error adding new product:', err)
+            console.error('Error signing up:', err)
         }
     }
 

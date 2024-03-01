@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import handleFormErrors from '@/helpers/handleLoginErrors'
 import FormInput from '@/components/FormInput'
 import { signIn } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 
 interface ErrorProps {
     username: string,
@@ -11,9 +12,11 @@ interface ErrorProps {
 }
 
 export default () => {
+    const router = useRouter()
     const [username, setUsername] = useState<string>('')
     const [password, setPassword] = useState<string>('')
     const [errors, setErrors] = useState<Partial<ErrorProps>>({})
+    const [errorMessage, setErrorMessage] = useState<string>('')
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
         e.preventDefault()
@@ -29,12 +32,23 @@ export default () => {
         setErrors({})
 
         try {
-            await signIn('credentials', {
+            const result: any = await signIn('credentials', {
                 username,
-                password
+                password,
+                redirect: false
             })
+            
+            if(result.error || result.status !== 200){
+                setErrorMessage(result.error)
+
+                return
+            }
+
+            setErrorMessage('')
+
+            router.refresh()
         } catch (err){
-            console.error('Error adding new product:', err)
+            console.error('Error signing in:', err)
         }
     }
 
@@ -67,6 +81,8 @@ export default () => {
                         </button>
                     </div>
                     <p className="text-black text-sm font-light text-center mt-3">Don't have an account? Join <a href='/signup' className='text-purple font-semibold'>here</a>.</p>
+                    {errorMessage !== '' &&
+                    <p className="text-red-500 text-sm font-normal text-center mt-3">{errorMessage}</p>}
                 </form>
             </div>
         </div>
