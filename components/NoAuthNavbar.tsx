@@ -7,7 +7,7 @@ export default () => {
         <header className="bg-light-grey h-16">
             <div className="container flex justify-between items-center mx-auto px-4 h-full">
                 <div>
-                    <h1 className="font-bold m-0">NextJS</h1>
+                    <h1 className="text-black font-bold m-0">NextJS</h1>
                 </div>
                 <div>
                     <Link href='/login'>

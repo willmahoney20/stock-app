@@ -7,8 +7,6 @@ export default ({ id, closePopup }: {
     const router = useRouter()
 
     const handleDelete = async () => {
-        console.log('sir', id)
-
         try {
             const res = await fetch('/api/delete', {
                 method: 'DELETE',

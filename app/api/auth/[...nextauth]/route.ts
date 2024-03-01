@@ -41,7 +41,9 @@ export const authOptions = {
 		async session({ token }: any) {
 			const [user]: any = await db.query(
 				`SELECT
-					u_role
+					u_role,
+					u_name,
+					u_username
 				FROM
 					will_users
 				WHERE
@@ -49,7 +51,12 @@ export const authOptions = {
 				[token.email]
 			)
 
-			token.role = user[0].u_role
+			token = {
+				...token,
+				role: user[0].u_role,
+				name: user[0].u_name,
+				username: user[0].u_username
+			}
 
 			return token
 		}

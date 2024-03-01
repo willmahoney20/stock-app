@@ -4,8 +4,8 @@ import { getServerSession } from 'next-auth'
 import { authOptions } from './api/auth/[...nextauth]/route'
 import "./global.css"
 import Providers from './providers'
-import Auth from "@/routing/Auth"
-import NoAuth from '@/routing/NoAuth'
+// import Auth from "@/routing/Auth"
+// import NoAuth from '@/routing/NoAuth'
 import AuthNavbar from '@/components/AuthNavbar'
 import NoAuthNavbar from '@/components/NoAuthNavbar'
 import Footer from "@/components/Footer"
@@ -29,21 +29,22 @@ export default async ({ children }: { children: React.ReactNode }) => {
                 <Providers>
                     <div className="flex flex-col justify-between min-h-screen">
                         {session ?
-                        <Auth>
+                        <>
                             <AuthNavbar />
                             <div style={{minHeight: 'calc(100vh - 96px)'}}>
                                 {children}
                             </div>
                             <Footer />
-                        </Auth>
+                        </>
                         : 
-                        <NoAuth>
+                        <>
                             <NoAuthNavbar />
                             <div style={{minHeight: 'calc(100vh - 96px)'}}>
                                 {children}
                             </div>
                             <Footer />
-                        </NoAuth>}
+                        </>
+                        }
                     </div>
                 </Providers>
             </body>
