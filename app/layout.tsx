@@ -4,8 +4,6 @@ import { getServerSession } from 'next-auth'
 import { authOptions } from './api/auth/[...nextauth]/route'
 import "./global.css"
 import Providers from './providers'
-// import Auth from "@/routing/Auth"
-// import NoAuth from '@/routing/NoAuth'
 import AuthNavbar from '@/components/AuthNavbar'
 import NoAuthNavbar from '@/components/NoAuthNavbar'
 import Footer from "@/components/Footer"
